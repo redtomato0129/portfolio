@@ -282,11 +282,37 @@
             width: 100%;
             height: 250px;
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-image:not(#ai-agent-images) {
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 4rem;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: block;
+        }
+        
+        .project-image img.active {
+            opacity: 1;
+        }
+        
+        .project-image i {
+            position: relative;
+            z-index: 1;
         }
         
         .project-card-body {
@@ -601,8 +627,10 @@
                 </div>
                 <div class="col-md-6 col-lg-4">
                     <div class="project-card">
-                        <div class="project-image">
-                            <i class="bi bi-mic"></i>
+                        <div class="project-image" id="ai-agent-images">
+                            <img src="projects/2/1.webp" alt="AI Agent Project 1" class="active">
+                            <img src="projects/2/2.webp" alt="AI Agent Project 2">
+                            <img src="projects/2/3.webp" alt="AI Agent Project 3">
                         </div>
                         <div class="project-card-body">
                             <h4>Voice Agent System</h4>
@@ -752,6 +780,40 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="bi bi-box"></i>
+                        </div>
+                        <div class="project-card-body">
+                            <h4>3D Model Viewer</h4>
+                            <p>Interactive 3D model viewer with drag-to-rotate and pinch-to-zoom functionality. Built with React, Three.js, and Fabric.js for immersive 3D visualization experiences with real-time coordinate tracking.</p>
+                            <div class="project-tags">
+                                <span class="tag">React</span>
+                                <span class="tag">Three.js</span>
+                                <span class="tag">Fabric.js</span>
+                            </div>
+                            <a href="https://3d-model-viewer-chi.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-link">View Project <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="bi bi-graph-up"></i>
+                        </div>
+                        <div class="project-card-body">
+                            <h4>TradegodAI</h4>
+                            <p>AI-powered trading platform leveraging machine learning and data analytics for intelligent market analysis and trading insights. Built with modern web technologies for real-time market data processing and predictive analytics.</p>
+                            <div class="project-tags">
+                                <span class="tag">AI</span>
+                                <span class="tag">Trading</span>
+                                <span class="tag">Machine Learning</span>
+                            </div>
+                            <a href="https://tradegodai.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-link">View Project <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -880,6 +942,34 @@
             card.style.transition = 'all 0.6s ease';
             observer.observe(card);
         });
+
+        // AI Agent Project Image Rotation with Fade Effect
+        function rotateAIAgentImages() {
+            const imageContainer = document.getElementById('ai-agent-images');
+            if (!imageContainer) return;
+            
+            const images = imageContainer.querySelectorAll('img');
+            if (images.length === 0) return;
+            
+            let currentIndex = 0;
+            
+            function showNextImage() {
+                // Remove active class from current image
+                images[currentIndex].classList.remove('active');
+                
+                // Move to next image
+                currentIndex = (currentIndex + 1) % images.length;
+                
+                // Add active class to next image
+                images[currentIndex].classList.add('active');
+            }
+            
+            // Start rotation after initial delay
+            setInterval(showNextImage, 3000); // Change image every 3 seconds
+        }
+        
+        // Initialize image rotation when page loads
+        window.addEventListener('DOMContentLoaded', rotateAIAgentImages);
     </script>
 </body>
 </html>
